@@ -1,0 +1,22 @@
+{
+  "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        "PID4": {
+          "PID Config": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo"
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client (NT4)",
+    "serverTeam": "4146"
+  }
+}
