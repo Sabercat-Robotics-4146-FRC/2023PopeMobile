@@ -45,17 +45,19 @@ public class DriveSubsystem extends SubsystemBase {
     leftBack.setNeutralMode(NeutralMode.Coast);
   }
 
-
+  // Forward/Back controlled by left stick, rotation controlled by right stick
   public void ArcadeDrive(double leftY, double rotation){  //LeftY = left y, rotation = right x of joystick
     rightFront.set(ControlMode.PercentOutput, (leftY + rotation));
     leftFront.set(ControlMode.PercentOutput, (leftY - rotation));
   }
 
+  // Left side of wheels controlled by left stick, right side controlled by right stick
   public void TankDrive(double leftY, double rightY){
     rightFront.set(ControlMode.PercentOutput, rightY);
     leftFront.set(ControlMode.PercentOutput, leftY);
   }
 
+  // Forward/Back controlled by right/left triggers, steering controlled with left stick
   public void VideoGameDrive(double rightTrigger, double leftTrigger, double leftX){
     rightFront.set(ControlMode.PercentOutput, rightTrigger - leftTrigger + leftX);
     leftFront.set(ControlMode.PercentOutput, rightTrigger - leftTrigger - leftX);

@@ -31,7 +31,7 @@ public final class Constants {
   public static final class FlywheelConstants{
     public static final int FLYWHEEL_MOTOR_ID = 12;
   }
-  public static final class IntakeConstants{
+  public static final class IntakeConstants {
     static public final int ARM_MOTOR_ID = 7;
     static public final int ROTATION_MOTOR_ID = 6;
 

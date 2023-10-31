@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.networktables.DoubleEntry;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -23,26 +22,30 @@ public class PneumaticsSubsystem extends SubsystemBase {
     pistonIsToggled = false;
   }
 
-  public void toggleCompressor(){
+  public void toggleCompressor(boolean toggle){
+    compressorIsToggled = toggle;
     if(!compressorIsToggled){
-      pcmCompressor.enableDigital();
-      compressorIsToggled = !compressorIsToggled;
-    }
-    else if (compressorIsToggled){
       pcmCompressor.disable();
-      compressorIsToggled = !compressorIsToggled;
+    } else {
+      pcmCompressor.enableDigital();
+    }
+  }
+
+  public void toggleCompressor() {
+    toggleCompressor(!compressorIsToggled);
+  }
+
+  public void togglePiston(boolean toggle){
+    pistonIsToggled = toggle;
+    if(!pistonIsToggled){
+      doublePCM.set(Value.kReverse);
+    } else {
+      doublePCM.set(Value.kForward);
     }
   }
 
   public void togglePiston(){
-    if(!pistonIsToggled){
-      doublePCM.set(Value.kForward);
-      pistonIsToggled = !pistonIsToggled;
-    }
-    else if (pistonIsToggled){
-      doublePCM.set(Value.kReverse);
-      pistonIsToggled = !pistonIsToggled;
-    }
+    togglePiston(!pistonIsToggled);
   }
 
 

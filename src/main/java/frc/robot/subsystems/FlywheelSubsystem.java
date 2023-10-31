@@ -12,12 +12,11 @@ import frc.robot.Constants.FlywheelConstants;
 
 public class FlywheelSubsystem extends PIDReadout {
 
-  public TalonSRX flywheelMotor; //Flywheel rotation motor
+  public TalonSRX flywheelMotor; // Flywheel Rotation Motor
 
-  public boolean toggle = false;
+  public boolean flywheelEnabled = false;
 
   public PIDController pid;
-
   public double kP = 40;
   public double kI = .1;
   public double kD = 1.1;
@@ -35,22 +34,25 @@ public class FlywheelSubsystem extends PIDReadout {
     pid = new PIDController(kP, kI, kD);
     pid.enableContinuousInput(-10000, 10000);
   }
-  
-  //1? 0.3, 0.1
 
-  public void runFlywheel() {
-    toggle = !toggle;
+  public void toggleFlywheel(boolean toggle) {
+    flywheelEnabled = toggle;
+  }
+
+  public void toggleFlywheel(){
+    toggleFlywheel(!flywheelEnabled);
   }
   
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Velocity", flywheelMotor.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Flywheel Velocity", flywheelMotor.getSelectedSensorVelocity());
     updatePID();
 
-    if(toggle) flywheelMotor.set(ControlMode.Velocity, -pid.calculate(flywheelMotor.getSelectedSensorVelocity(), 6000)); 
+    if(flywheelEnabled) flywheelMotor.set(ControlMode.Velocity, -pid.calculate(flywheelMotor.getSelectedSensorVelocity(), 6000)); 
     else flywheelMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  // Updates values based upon Shuffleboard inputs
   public void updatePID(){
     kP = m_kP.getDouble(40);
     kI = m_kI.getDouble(0.1);

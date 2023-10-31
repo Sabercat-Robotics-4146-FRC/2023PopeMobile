@@ -30,14 +30,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //Arm Extention
+    // Arm Extention
     if(extended && extensionLimitSwitch.get()) {
       armMotor.set(ControlMode.PercentOutput, 0.3);  
     } else if (!extended && retractionLimitSwitch.get()) {
       armMotor.set(ControlMode.PercentOutput, -.7);
     } else armMotor.set(ControlMode.PercentOutput, 0);
 
-    //Rotation 
+    // Rotation 
     if (rotating){
       rotationMotor.set(ControlMode.PercentOutput, 1); 
     }
@@ -46,12 +46,20 @@ public class IntakeSubsystem extends SubsystemBase {
     }
   }
 
+  public void toggleExtension(boolean toggle) {
+    extended = toggle;
+  }
+
   public void toggleExtension() {
-    extended = !extended;
+    toggleExtension(!extended);
+  }
+
+  public void toggleRotation(boolean toggle) {
+    rotating = toggle;
   }
 
   public void toggleRotation() {
-    rotating = !rotating;
+    toggleRotation(!rotating);
   }
 
 }
